@@ -1,0 +1,77 @@
+﻿<Page x:Name="API_Google_Maps" x:Class="GPX_Viewer.MapAPI.Google_Maps"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GPX_Viewer.MapAPI"
+      xmlns:map="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="Google Maps">
+
+
+    <Viewbox StretchDirection="Both" Stretch="Uniform" Height="720" Width="1280">
+        <Grid Height="720" Width="1280">
+
+            <Grid x:Name="mapGrid" Width="900" Margin="10,85,370,30">
+                <map:GMapControl x:Name="mapControl" Loaded="mapView_Loaded" MinZoom="2" MaxZoom="17"/>
+            </Grid>
+
+            <Label Content="API GOOGLE MAPS" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="70" Width="400" FontSize="36" Background="Black" BorderBrush="#FF3C3C3C" BorderThickness="5,5,5,5" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
+                <Label.Foreground>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF34A853"/>
+                        <GradientStop Color="#FFEA4335" Offset="0.51"/>
+                        <GradientStop Color="#FF1A73E8" Offset="0.226"/>
+                        <GradientStop Color="#FFFBBC04" Offset="1"/>
+                    </RadialGradientBrush>
+                </Label.Foreground>
+            </Label>
+            <Image HorizontalAlignment="Left" Height="50" Width="50" VerticalAlignment="Top" Source="../Image\Ico\Google_Maps.png" Margin="352,18,0,0"/>
+
+            <Label Content="Wybierz Plik GPX" HorizontalAlignment="Left" Margin="918,85,0,0" VerticalAlignment="Top" Height="50" Width="350" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  FontSize="20" Background="#FF008BFF" Foreground="Black" BorderBrush="#FF3C3C3C" BorderThickness="2,2,2,2" FontWeight="Bold"/>
+            <TextBox x:Name="fileNameTextBox" HorizontalAlignment="Left" Height="35" VerticalContentAlignment="Center" Width="350" Margin="918,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top"  FontSize="20" IsReadOnly="True"/>
+            <Button Content="Przegladaj" HorizontalAlignment="Left" Margin="918,180,0,0" VerticalAlignment="Top" Height="50" Width="170" FontSize="20" Background="#FF194600" Foreground="White" Click="browseButton"/>
+            <Button Content="Wczytaj" HorizontalAlignment="Left" Margin="1098,180,0,0" VerticalAlignment="Top" Height="50" Width="170" FontSize="20" Background="#FF194600" Foreground="White" Click="addTraceToListViewButton"/>
+            <Label Content="Wybrane Trasy" HorizontalAlignment="Left" Margin="918,235,0,0" VerticalAlignment="Top" Height="50" Width="350" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  FontSize="20" Background="#FF008BFF" Foreground="Black" BorderBrush="#FF3C3C3C" BorderThickness="2,2,2,2" FontWeight="Bold"/>
+
+            <Button Content="Zmien tryb mapy" HorizontalAlignment="Left" Margin="415,10,0,0" VerticalAlignment="Top" Width="220" Height="70" Background="#FF194600" Foreground="White" Click="changeMapModeButton" FontSize="20"/>
+
+            <Button Content="Wyczyść listę" HorizontalAlignment="Left" Margin="918,561,0,0" VerticalAlignment="Top" Height="40" Width="350" FontSize="20" Background="#FF460000" Foreground="White" Click="clearTraceListViewButton"/>
+            <Button Content="Usun wybrana trase" HorizontalAlignment="Left" Margin="918,605,0,0" VerticalAlignment="Top" Height="40" Width="350" FontSize="20" Background="#FF460000" Foreground="White" Click="dellCheckedTraceListViewButton"/>
+            <Button Content="Dodaj opis" HorizontalAlignment="Left" Margin="918,650,0,0" VerticalAlignment="Top" Height="40" Width="350" Click="dodjaOpis" FontSize="20" Background="#FF194600" Foreground="White"/>
+            <Button Content="Odśwież Listę" HorizontalAlignment="Left" Margin="918,517,0,0" VerticalAlignment="Top" Height="40" Width="350" Click="odswiezListView" FontSize="20" Background="#FF194600" Foreground="White"/>
+
+            <ListView Name="traceListView" Margin="918,290,12,208" FontSize="15" SelectionChanged="traceListView_SelectionChanged">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Lp." Width="Auto">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Margin="5, 0" Text="{Binding Number}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Nazwa Pliku Trasy" Width="Auto">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Margin="5, 0" Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Wyświetl na mapie" Width="Auto">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox Margin="5, 0" IsChecked="{Binding Check}" Click="mapUpdate"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TextBox x:Name="textBoxOpis" HorizontalAlignment="Left" Height="70" Margin="828,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="440"/>
+            <Label Content="Opis Trasy" HorizontalAlignment="Left" Margin="640,10,0,0" VerticalAlignment="Top" Width="183" Height="70" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  FontSize="20" Background="#FF008BFF" Foreground="Black" BorderBrush="#FF3C3C3C" BorderThickness="2,2,2,2" FontWeight="Bold"/>
+
+        </Grid>
+    </Viewbox>
+</Page>
